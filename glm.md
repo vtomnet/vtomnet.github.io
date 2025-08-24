@@ -1,4 +1,4 @@
-Model: GLM-4.5 base
+# GLM-4.5
 
 System prompt: `You are a helpful assistant.`
 
