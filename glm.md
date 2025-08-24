@@ -1,4 +1,8 @@
-# GLM-4.5
+---
+title: GLM-4.5
+---
+
+(The chat version I think, whatever was running on https://huggingface.co/spaces/zai-org/GLM-4.5-Space on August 1.)
 
 System prompt: `You are a helpful assistant.`
 
