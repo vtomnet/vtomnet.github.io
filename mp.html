@@ -1,0 +1,41 @@
+<!DOCYTPE html>
+<html>
+  <head>
+    <title>Mission Planning</title>
+    <style>
+      code {
+        border-radius: 4px;
+        line-height: 2.0;
+      }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+  </head>
+  <body>
+
+    <p>Start the simulator:</p>
+    <pre><code>git clone https://github.com/spot-control
+cd spot-control
+make sim
+open http://localhost:8080/vnc.html
+# use `tmux kill-session` to stop the system</code></pre>
+
+    <p>Start the proxy:</p>
+    <pre><code>git clone https://github.com/vtomnet/mp-proxy
+cd mp-proxy
+# install deps from requirements.txt
+# acquire (free) ngrok domain and auth token from ngrok.com
+# add DOMAIN=your-domain.ngrok-free.app and NGROK_AUTHTOKEN=abcxyz to .env
+python3 proxy.py</code></pre>
+
+    <p>Open the UI:</p>
+    <ol>
+      <li>Open <a href="https://mp.vtom.net">mp.vtom.net</a> on mobile or desktop browser</li>
+      <li>click settings in top right corner</li>
+      <li>check "send to device" and enter your ngrok domain in "device host"</li>
+      <li>type or speak a mission plan, e.g. "drive the robot 2 meters left"</li>
+    </ol>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+  </body>
+</html>
