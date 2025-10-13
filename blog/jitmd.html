@@ -1,0 +1,35 @@
+# Append 107 bytes to a markdown file to render it in-browser
+
+[Occasionally][0], [someone suggests adding][1] [native markdown rendering][2] [to the browser][3]. This is probably a bad idea, given that there are at least two markdown variants in common use, plenty of markdown documents aren't compatible with either of them, and Gruber's markdown has ambiguities. Pandoc implements eight(!) different variants of markdown. ([Obligatory xkcd](https://xkcd.com/927).)
+
+But this morning I realized you could simply send a markdown file to the browser, with some Javascript that renders it just-in-time. And browsers are very liberal in what they accept, so you need only append a simple &lt;script>. How simple?
+
+<code>
+&lt;script src=//unpkg.com/marked/lib/marked.umd onload=body.innerHTML=marked.parse(body.innerHTML)>&lt;/script>
+</code>
+
+In fact, this document you're reading is rendered client-side. Click "view page source" to see the markdown! (You may have noticed a flash on load---that is why.)
+
+The golfed version above nets out to 107 bytes, and works in (at least) Chromium, WebKit, and Firefox, although more lines are necessary if you want extensions like smart quotes and footnotes, like I'm using here. Also, the CDN URL needs `https:` for the document to be rendered when loaded from disk (via `file:`), and per the HTML spec[^1] the `onload` attribute value *should* be quoted, though none of the browsers complain. The HTML spec also requires a DOCTYPE and &lt;title>, but again the browsers don't mind it missing.
+
+HTML tags are permitted inside markdown files, so with the &lt;script> it can still be parsed as markdown! You could even compile a markdown file containing the script to HTML, then open the HTML in a browser; the &lt;script> will remain and execute, but is essentially a no-op since all the markdown syntax has been converted. Although that's rather wasteful so you probably shouldn't.
+
+Lastly, images work too!
+
+![](https://9p.io/plan9/img/9logo.jpg)
+
+[0]: https://news.ycombinator.com/item?id=33505339
+[1]: https://ipfs.io/ipfs/bafybeid7lt7snuzcvcmfqs5a5hlc5fmk3xmflz4hx2qa7c674vm3rpsdvm/why-we-should-have-markdown-rendered-websites.html
+[2]: https://learn.microsoft.com/en-us/answers/questions/2365634/native-markdown-rendering
+[3]: https://x.com/andrestaltz/status/1304836922397818880
+
+[^1]: https://html.spec.whatwg.org/multipage/syntax.html
+
+
+<script type="module">
+import { marked } from "https://esm.sh/marked";
+import { markedSmartypants } from "https://esm.sh/marked-smartypants";
+import markedFootnote from "https://esm.sh/marked-footnote";
+marked.use(markedSmartypants(), markedFootnote());
+document.body.innerHTML = marked.parse(document.body.innerHTML);
+</script>
