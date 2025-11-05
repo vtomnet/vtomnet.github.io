@@ -12,7 +12,7 @@
   </head>
   <body>
 
-    <p>Start the simulator:</p>
+    <p>Start the simulator (optional):</p>
     <pre><code>git clone https://github.com/spot-control
 cd spot-control
 make sim
@@ -22,17 +22,35 @@ open http://localhost:8080/vnc.html
     <p>Start the proxy:</p>
     <pre><code>git clone https://github.com/vtomnet/mp-proxy
 cd mp-proxy
-# install deps from requirements.txt
+pip install -r requirements.txt
 # acquire (free) ngrok domain and auth token from ngrok.com
 # add DOMAIN=your-domain.ngrok-free.app and NGROK_AUTHTOKEN=abcxyz to .env
-python3 proxy.py</code></pre>
+python proxy.py --to-http localhost:8002</code></pre>
 
-    <p>Open the UI:</p>
+    <p>Run the gpt-mission-planner server:</p>
+    <pre><code>git clone -b tom/cli https://github.com/ucmercedrobotics/gpt-mission-planner
+cd gpt-mission-planner
+pip install -r requirements.txt
+# add OPENAI_API_KEY to .env
+make serve</code></pre>
+
+    <p>Run mpui:</p>
+    <pre><code>git clone -b tom/demo-1105 https://github.com/vtomnet/mpui
+cd mpui
+npm install
+npm run build
+npm run server
+# open your ngrok domain (something.ngrok-free.app) in mobile or desktop browser
+# check "Send to device" in settings if using with spot-control or a real robot
+# Google Maps requires VITE_GOOGLE_MAPS_API_KEY. Google Maps is not the default</code></pre>
+
+    <p>Notes:</p>
     <ol>
-      <li>Open <a href="https://mp.vtom.net">mp.vtom.net</a> on mobile or desktop browser</li>
-      <li>click settings in top right corner</li>
-      <li>check "send to device" and enter your ngrok domain in "device host"</li>
-      <li>type or speak a mission plan, e.g. "drive the robot 2 meters left"</li>
+      <li>If you do not wish to host mpui yourself, gpt-mission-planner and mpui are hosted at <a href="https://mpui.vtom.net">mp.vtom.net</a>.</li>
+      <li>You will need ports 8001-8003 (if self-hosting) and 12346 (if using spot-control) available.</li>
+      <li>If using mp.vtom.net and "send to device," set "device host" to your ngrok domain. If self-hosting, this will be pre-filled and you need not do anything.</li>
+      <li>Be careful not to hit ngrok's monthly usage limit. It should be plenty for a few demos. See "Data Transfer Out" at <a href="https://dashboard.ngrok.com/usage">https://dashboard.ngrok.com/usage</a>.
+      <li>Example input: "drive the robot 2 meters left."</li>
     </ol>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
