@@ -27,6 +27,8 @@ pip install -r requirements.txt
 # add DOMAIN=your-domain.ngrok-free.app and NGROK_AUTHTOKEN=abcxyz to .env
 python proxy.py --to-http localhost:8002</code></pre>
 
+    From here, you may use the hosted webapp at <a href="https://mp.vtom.net">mp.vtom.net</a>, or you may self-host. To use the hosted version with a simulator or robot, be sure to check "send to device" and copy your ngrok domain into "device host" in the web UI settings. Otherwise, see below for self-hosting:
+
     <p>Run the gpt-mission-planner server:</p>
     <pre><code>git clone -b tom/cli https://github.com/ucmercedrobotics/gpt-mission-planner
 cd gpt-mission-planner
@@ -48,9 +50,7 @@ npm run server
 
     <p>Notes:</p>
     <ol>
-      <li>If you do not wish to host mpui yourself, gpt-mission-planner and mpui are hosted at <a href="https://mpui.vtom.net">mp.vtom.net</a>.</li>
-      <li>You will need ports 8001-8003 (if self-hosting) and 12346 (if using spot-control) available.</li>
-      <li>If using mp.vtom.net and "send to device," set "device host" to your ngrok domain. If self-hosting, this will be pre-filled and you need not do anything.</li>
+      <li>You will need port 8001 for the proxy; if self-hosting, 8002 and 8003 for the frontend and backend; and 8080 and 12346 if using spot-control.</li>
       <li>Be careful not to hit ngrok's monthly usage limit. It should be plenty for a few demos. See "Data Transfer Out" at <a href="https://dashboard.ngrok.com/usage">https://dashboard.ngrok.com/usage</a>.
       <li>Example input: "drive the robot 2 meters left."</li>
     </ol>
