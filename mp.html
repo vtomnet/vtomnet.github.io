@@ -30,6 +30,8 @@ python proxy.py --to-http localhost:8002</code></pre>
     <p>Run the gpt-mission-planner server:</p>
     <pre><code>git clone -b tom/cli https://github.com/ucmercedrobotics/gpt-mission-planner
 cd gpt-mission-planner
+git submodule update --init --recursive
+test -d schemas/schemas && cp schemas/schemas/* schemas/  # temp hack until the submodule gets updated
 pip install -r requirements.txt
 # add OPENAI_API_KEY to .env
 make serve</code></pre>
